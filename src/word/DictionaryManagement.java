@@ -14,6 +14,7 @@ public class DictionaryManagement{
     System.out.println("Nhap so luong tu: ");
     wordCount = keyboard.nextInt();
     for(int i=0; i<wordCount; i++){
+      a.dictionary[i] = new Word();
       a.dictionary[i].word_target = word.nextLine();
       a.dictionary[i].word_explain = word.nextLine();
     }
