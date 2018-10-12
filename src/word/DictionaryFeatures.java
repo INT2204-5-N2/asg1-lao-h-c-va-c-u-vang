@@ -35,14 +35,17 @@ public class DictionaryFeatures{
   ObservableList<String> oListStavaka = FXCollections.observableArrayList();
   ObservableList<String> oListStavaka1 = FXCollections.observableArrayList();
   TextField textField = new TextField();
-  Scanner data;
   File file = new File("src/word/E_V.txt");
+  Scanner data;
   int lines = 0;
   Button add = new Button("ADD");
+  Button delete = new Button("DELETE");
+  Button replace = new Button("REPLACE");
   Button done = new Button("DONE");
   WebView browser = new WebView();
   WebEngine webEngine = browser.getEngine();
   Path path = Paths.get("src/word/E_V.txt");
+  Button speech = new Button("SPEECH");
 
   public void search(String oldVal, String newVal){
     if(oldVal == null || newVal.isEmpty() || newVal.length() < oldVal.length()){
@@ -73,7 +76,8 @@ public class DictionaryFeatures{
           done.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent event) {
               lines++;
-              String x = new String(addTextField.getText() + "<html> <head> <title> -" + addTextField.getText() + "</title> </head> <body> " + addWordMean.getText() + "</body> </html>");
+              String newLine = System.getProperty("line.separator");
+              String x = new String(addTextField.getText() + "<html> <head> <title> -" + addTextField.getText() + "</title> </head> <body> " + addWordMean.getText() + "</body> </html>\n");
               oListStavaka.add(addTextField.getText());
               oListStavaka1.add(addWordMean.getText());
               byte[] writeFile = x.getBytes();
@@ -114,6 +118,79 @@ public class DictionaryFeatures{
 
   }
 
+  public void deleteButton(Stage primaryStage) throws IOException {
+    delete.setOnAction(new EventHandler<ActionEvent>(){
+      @Override
+      public void handle(ActionEvent event)  {
+        VBox secondaryLayout = new VBox();
+        secondaryLayout.setSpacing(5);
+
+          Scene secondScene = new Scene(secondaryLayout, 230, 100);
+          TextField deleteWord = new TextField();
+          done.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event) {
+              String word = deleteWord.getText();
+              int tempLine = 0;
+              for(int i=0; i<=lines; i++){
+                if(word.equals(oListStavaka.get(i))){
+                  oListStavaka.remove(i);
+                  oListStavaka1.remove(i);
+                  break;
+                }
+                tempLine++;
+              }
+              try{
+                data = new Scanner(file);
+                File temp_file = new File("/home/quanghuy/BTL/src/word/E_V_Temp.txt");
+                if(temp_file.createNewFile()){
+                  System.out.println("File da tao");
+                }else{
+                  System.out.println("File chua tao");
+                }
+
+                Path temp_path = Paths.get("/home/quanghuy/BTL/src/word/E_V_Temp.txt");
+                for(int i=0;i <lines; i++){
+                  if(i == tempLine) continue;
+                  String temp_line = new String(data.nextLine() + "\n");
+                  Files.write(temp_path,temp_line.getBytes(), StandardOpenOption.APPEND);
+                }
+                Files.delete(path);
+                Files.move(temp_path, temp_path.resolveSibling("E_V.txt"));
+              } catch (Exception e){
+                System.out.println("Loi");
+              }
+              lines--;
+            }
+          });
+
+          deleteWord.setMaxWidth(150);
+          secondaryLayout.getChildren().add(new Label("Tu can xoa: "));
+          secondaryLayout.getChildren().add(deleteWord);
+          secondaryLayout.getChildren().add(done);
+
+          // New window (Stage)
+          Stage newWindow = new Stage();
+          newWindow.setTitle("Second Stage");
+          newWindow.setScene(secondScene);
+
+          // Specifies the modality for new window.
+          newWindow.initModality(Modality.WINDOW_MODAL);
+
+          // Specifies the owner Window (parent) for new window
+          newWindow.initOwner(primaryStage);
+
+          // Set position of second window, related to primary window.
+          newWindow.setX(primaryStage.getX() + 200);
+          newWindow.setY(primaryStage.getY() + 100);
+
+          newWindow.show();
+      }
+    });
+  }
+
+  public void speechButton(Stage primaryStage){
+    
+  }
 
     //An vao tu
     public void clickWord(){

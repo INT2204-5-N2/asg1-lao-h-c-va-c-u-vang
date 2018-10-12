@@ -76,6 +76,7 @@ public class DictionaryApplication extends Application {
       });
 
       dicF.addButton(primaryStage);
+      dicF.deleteButton(primaryStage);
 
       root.getChildren().add(new Label("Enter message:"));
 
@@ -88,6 +89,8 @@ public class DictionaryApplication extends Application {
       root.getChildren().add(dicF.listView);
       root.getChildren().add(dicF.browser);
       root.getChildren().add(dicF.add);
+      root.getChildren().add(dicF.delete);
+      root.getChildren().add(dicF.speech);
       Scene scene = new Scene(root, 500, 500);
       primaryStage.setTitle("JavaFX TextArea (o7planning.org)");
       primaryStage.setScene(scene);
