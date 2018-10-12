@@ -36,13 +36,13 @@ public class DictionaryFeatures{
   ObservableList<String> oListStavaka1 = FXCollections.observableArrayList();
   TextField textField = new TextField();
   Scanner data;
-  File file = new File("src/word/E_V.txt");
+  File file = new File("src/word/E_V.txt");	//
   int lines = 0;
   Button add = new Button("ADD");
   Button done = new Button("DONE");
   WebView browser = new WebView();
   WebEngine webEngine = browser.getEngine();
-  Path path = Paths.get("src/word/E_V.txt");
+  Path path = Paths.get("src/word/E_V.txt");//
 
   public void search(String oldVal, String newVal){
     if(oldVal == null || newVal.isEmpty() || newVal.length() < oldVal.length()){
@@ -76,9 +76,9 @@ public class DictionaryFeatures{
               String x = new String(addTextField.getText() + "<html> <head> <title> -" + addTextField.getText() + "</title> </head> <body> " + addWordMean.getText() + "</body> </html>");
               oListStavaka.add(addTextField.getText());
               oListStavaka1.add(addWordMean.getText());
-              byte[] writeFile = x.getBytes();
+              byte[] writeFile = x.getBytes();//
               try{
-              Files.write(path, writeFile, StandardOpenOption.APPEND);
+              Files.write(path, writeFile, StandardOpenOption.APPEND);//
             } catch (Exception e){
               System.out.println("Loi");
             }
