@@ -1,0 +1,8 @@
+2018-10-14 13:10:17,429 [JavaFX Application Thread] INFO  marytts.main Mary starting up...
+2018-10-14 13:10:17,447 [JavaFX Application Thread] INFO  marytts.main Specification version 5.2
+2018-10-14 13:10:17,447 [JavaFX Application Thread] INFO  marytts.main Implementation version unknown
+2018-10-14 13:10:17,447 [JavaFX Application Thread] INFO  marytts.main Running on a Java 11 implementation by Oracle Corporation, on a Linux platform (amd64, 4.15.0-36-generic)
+2018-10-14 13:25:15,405 [JavaFX Application Thread] INFO  marytts.main Mary starting up...
+2018-10-14 13:25:15,421 [JavaFX Application Thread] INFO  marytts.main Specification version 5.2
+2018-10-14 13:25:15,422 [JavaFX Application Thread] INFO  marytts.main Implementation version unknown
+2018-10-14 13:25:15,422 [JavaFX Application Thread] INFO  marytts.main Running on a Java 11 implementation by Oracle Corporation, on a Linux platform (amd64, 4.15.0-36-generic)

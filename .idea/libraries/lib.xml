@@ -1,0 +1,36 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/ext/jfxrt.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11/lib" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/groovy-all-2.4.15.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/emotionml-checker-java-1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/icu4j-54.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/jama-1.0.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/jtok-core-1.9.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/log4j-over-slf4j-1.7.21.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/marytts-common-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/marytts-lang-de-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/marytts-lang-en-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/voice-cmu-slt-hsmm-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/voice-bits3-hsmm-5.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/voice-bits1-hsmm-5.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/opennlp-tools-1.5.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/opennlp-maxent-3.0.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/marytts-signalproc-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/org.openhab.voice.marytts-2.4.0-SNAPSHOT/lib/marytts-runtime-6.0-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/voicerss_tts_java/voicerss_tts.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Downloads/freetts-1.2.2-bin/freetts-1.2/javadoc" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/javafx-sdk-11/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-11/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-11/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>
