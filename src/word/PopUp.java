@@ -8,13 +8,13 @@ import javafx.stage.Stage;
 public class PopUp  {
     VBox layOut = new VBox();
     Stage extraStage = new Stage();
-    Scene extraScene = new Scene(layOut, 230, 200);
+    Scene extraScene = new Scene(layOut, 400, 400);
 
     public void popMessage(Stage button){
         extraStage.setScene(extraScene);
         extraStage.initOwner(button);
         layOut.setSpacing(5);
-        layOut.getChildren().add(new javafx.scene.control.Label("Tu da co san. Neu can thiet vui long FIX"));
+        layOut.getChildren().add(new javafx.scene.control.Label("TU NAY DA CO SAN"));
         extraStage.setTitle("Tu da co san");
         extraStage.initModality(Modality.WINDOW_MODAL);
         extraStage.setX(button.getX()+200);

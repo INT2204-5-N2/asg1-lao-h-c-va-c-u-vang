@@ -10,12 +10,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -30,11 +30,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DictionaryFeatures{
-  ListView<String> listView = new ListView<String>();
-  ObservableList<String> oListStavaka = FXCollections.observableArrayList();
-  ObservableList<String> oListStavaka1 = FXCollections.observableArrayList();
+  Create element = new Create();
   TextField textField = new TextField();
   Scanner data;
   File file = new File("src/word/E_V.txt");	//
@@ -42,59 +41,62 @@ public class DictionaryFeatures{
   Button add = new Button("ADD");
   Button delete = new Button("DELETE");
   Button replace = new Button("REPLACE");
-  Button done = new Button("DONE");
+  private Button done = new Button("DONE");
   Button speech = new Button("SPEECH");
   WebView browser = new WebView();
-  WebEngine webEngine = browser.getEngine();
-  Path path = Paths.get("src/word/E_V.txt");//
-  VoiceProvider tts = new VoiceProvider("f6190da583764c68b99019f36a32cbc5");
-  byte[] voice = new byte[0];
-  File soundFile = new File("src/word/voice.mp3");
-  Clip clip;
+  private WebEngine webEngine = browser.getEngine();
+  private Path path = Paths.get("src/word/E_V.txt");//
+  private VoiceProvider tts = new VoiceProvider("f6190da583764c68b99019f36a32cbc5");
+  private byte[] voice = new byte[0];
+  private File soundFile = new File("src/word/voice.mp3");
+  private Clip clip;
 
 
   public DictionaryFeatures() {
   }
 
 
-  public void search(String oldVal, String newVal){
+  void search(String oldVal, String newVal){
     if(oldVal == null || newVal.isEmpty() || newVal.length() < oldVal.length()){
-      listView.setItems(oListStavaka);
+      element.listView.setItems(element.oListStavaka);
     }
       String searchWord = newVal.toUpperCase();
       ObservableList<String> newList = FXCollections.observableArrayList();
-      for(String entry : listView.getItems()){
-        String searching = entry;
-        if(searching.toUpperCase().startsWith(searchWord)){
-          newList.add(searching);
+      for(String entry : element.listView.getItems()){
+          if(entry.toUpperCase().startsWith(searchWord)){
+          newList.add(entry);
       }
-      listView.setItems(newList);
+        element.listView.setItems(newList);
     }
   }
 
-  public void addButton(Stage primaryStage) {
+    void addButton(Stage primaryStage) {
     add.setOnAction(event -> {
       VBox secondaryLayout = new VBox();
       Stage newWindow = new Stage();
       secondaryLayout.setSpacing(5);
-
-      Scene secondScene = new Scene(secondaryLayout, 230, 200);
+      AtomicBoolean isAdd = new AtomicBoolean(true);
+      Scene secondScene = new Scene(secondaryLayout, 700, 500);
       TextField addTextField = new TextField();
-      TextField addWordMean = new TextField();
+      HTMLEditor htmlEditor = new HTMLEditor();
+      htmlEditor.setPrefHeight(245);
+      htmlEditor.setMinHeight(220);
       done.setOnAction(event1 -> {
         int i;
         for(i = 0; i<lines; i++){
-            if(addTextField.getText().equals(oListStavaka.get(i))) {
+            if(addTextField.getText().equals(element.oListStavaka.get(i))) {
                 PopUp popUp = new PopUp();
                 popUp.popMessage(newWindow);
+                isAdd.set(false);
                 break;
             }
         }
         if(i == lines){
           lines++;
-          String x = addTextField.getText() + "<html> <head> <title> -" + addTextField.getText() + "</title> </head> <body> " + addWordMean.getText() + "</body> </html>\n";
-          oListStavaka.add(addTextField.getText());
-          oListStavaka1.add(addWordMean.getText());
+          element.oListStavaka.add(addTextField.getText());
+          element.oListStavaka1.add(htmlEditor.getHtmlText());
+          System.out.println(htmlEditor.getHtmlText());
+          String x = addTextField.getText() + htmlEditor.getHtmlText() + "\n";
           byte[] writeFile = x.getBytes();//
           try{
             Files.write(path, writeFile, StandardOpenOption.APPEND);//
@@ -102,6 +104,10 @@ public class DictionaryFeatures{
             System.out.println("Loi");
           }
         }
+        webEngine.loadContent("");
+        textField.setText("");
+        element.listView.setItems(element.oListStavaka);
+        if(isAdd.get() == true) ((Stage)done.getScene().getWindow()).close();
 
         });
 
@@ -109,7 +115,7 @@ public class DictionaryFeatures{
       secondaryLayout.getChildren().add(new Label("Tu can them:"));
       secondaryLayout.getChildren().add(addTextField);
       secondaryLayout.getChildren().add(new Label("Nghia cua tu: "));
-      secondaryLayout.getChildren().add(addWordMean);
+      secondaryLayout.getChildren().add(htmlEditor);
       secondaryLayout.getChildren().add(done);
 
         // New window (Stage)
@@ -119,8 +125,8 @@ public class DictionaryFeatures{
       // Specifies the modality for new window.
       newWindow.initModality(Modality.WINDOW_MODAL);
 
-      // Specifies the owner Window (parent) for new window
-      newWindow.initOwner(primaryStage);
+      /*// Specifies the owner Window (parent) for new window
+      newWindow.initOwner(primaryStage);*/
 
       // Set position of second window, related to primary window.
       newWindow.setX(primaryStage.getX() + 200);
@@ -131,79 +137,51 @@ public class DictionaryFeatures{
 
   }
 
-  public void deleteButton(Stage primaryStage) throws IOException {
+  void deleteButton(Stage primaryStage) throws IOException {
     delete.setOnAction(new EventHandler<ActionEvent>(){
       @Override
-      public void handle(ActionEvent event)  {
-        VBox secondaryLayout = new VBox();
-        secondaryLayout.setSpacing(5);
+      public void handle(ActionEvent event) {
+        String word = element.listView.getSelectionModel().getSelectedItem();
+        int tempLine = 0;
+        for (int i = 0; i <= lines; i++) {
+          if (word.equals(element.oListStavaka.get(i))) {
+            element.oListStavaka.remove(i);
+            element.oListStavaka1.remove(i);
+            break;
+          }
+          tempLine++;
+        }
+        try {
+          data = new Scanner(file);
+          File temp_file = new File("src/word/E_V_Temp.txt");
+          if (temp_file.createNewFile()) {
+            System.out.println("File da tao");
+          } else {
+            System.out.println("File chua tao");
+          }
 
-          Scene secondScene = new Scene(secondaryLayout, 230, 100);
-          TextField deleteWord = new TextField();
-          done.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(ActionEvent event) {
-              String word = deleteWord.getText();
-              int tempLine = 0;
-              for(int i=0; i<=lines; i++){
-                if(word.equals(oListStavaka.get(i))){
-                  oListStavaka.remove(i);
-                  oListStavaka1.remove(i);
-                  break;
-                }
-                tempLine++;
-              }
-              try{
-                data = new Scanner(file);
-                File temp_file = new File("src/word/E_V_Temp.txt");
-                if(temp_file.createNewFile()){
-                  System.out.println("File da tao");
-                }else{
-                  System.out.println("File chua tao");
-                }
-
-                Path temp_path = Paths.get("src/word/E_V_Temp.txt");
-                for(int i=0;i <lines; i++){
-                  if(i == tempLine) continue;
-                  String temp_line = new String(data.nextLine() + "\n");
-                  Files.write(temp_path,temp_line.getBytes(), StandardOpenOption.APPEND);
-                }
-                Files.delete(path);
-                Files.move(temp_path, temp_path.resolveSibling("E_V.txt"));
-              } catch (Exception e){
-                System.out.println("Loi");
-              }
-              lines--;
-            }
-          });
-
-          deleteWord.setMaxWidth(150);
-          secondaryLayout.getChildren().add(new Label("Tu can xoa: "));
-          secondaryLayout.getChildren().add(deleteWord);
-          secondaryLayout.getChildren().add(done);
-
-          // New window (Stage)
-          Stage newWindow = new Stage();
-          newWindow.setTitle("Second Stage");
-          newWindow.setScene(secondScene);
-
-          // Specifies the modality for new window.
-          newWindow.initModality(Modality.WINDOW_MODAL);
-
-          // Specifies the owner Window (parent) for new window
-          newWindow.initOwner(primaryStage);
-
-          // Set position of second window, related to primary window.
-          newWindow.setX(primaryStage.getX() + 200);
-          newWindow.setY(primaryStage.getY() + 100);
-
-          newWindow.show();
+          Path temp_path = Paths.get("src/word/E_V_Temp.txt");
+          for (int i = 0; i < lines; i++) {
+            if (i == tempLine) continue;
+            String temp_line = data.nextLine() + "\n";
+            Files.write(temp_path, temp_line.getBytes(), StandardOpenOption.APPEND);
+          }
+          Files.delete(path);
+          Files.move(temp_path, temp_path.resolveSibling("E_V.txt"));
+        } catch (Exception e) {
+          System.out.println("Loi");
+        }
+        lines--;
+        webEngine.loadContent("");
+        textField.setText("");
+        element.listView.setItems(element.oListStavaka);
       }
     });
   }
 
-  public void speechButton(){
+  void speechButton(){
     speech.setOnAction(event -> {
-      String soundWord = listView.getSelectionModel().getSelectedItem().toString();
+      String soundWord = element.listView.getSelectionModel().getSelectedItem().toString();
       VoiceParameters params = new VoiceParameters(soundWord, Languages.English_UnitedStates);
       params.setCodec(AudioCodec.WAV);
       params.setFormat(AudioFormat.Format_44KHZ.AF_44khz_16bit_stereo);
@@ -226,24 +204,20 @@ public class DictionaryFeatures{
         clip.open(sound);
         clip.start();
         soundFile.delete();
-      } catch (UnsupportedAudioFileException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (LineUnavailableException e) {
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
         e.printStackTrace();
       }
     });
   }
 
     //An vao tu
-    public void clickWord(){
-      listView.setOnMouseClicked(new EventHandler<MouseEvent>()  {
+    void clickWord(){
+      element.listView.setOnMouseClicked(new EventHandler<MouseEvent>()  {
         @Override
         public void handle(MouseEvent event) {
           for(int i=0; i<lines; i++){
-            if(listView.getSelectionModel().getSelectedItem().toString().equals(oListStavaka.get(i))){
-              webEngine.loadContent(oListStavaka1.get(i));
+            if(element.listView.getSelectionModel().getSelectedItem().toString().equals(element.oListStavaka.get(i))){
+              webEngine.loadContent(element.oListStavaka1.get(i));
               break;
             }
           }
@@ -252,14 +226,14 @@ public class DictionaryFeatures{
     }
 
     //An enter
-    public void enterPress(){
-      listView.setOnKeyPressed(new EventHandler<KeyEvent>(){
+    void enterPress(){
+      element.listView.setOnKeyPressed(new EventHandler<KeyEvent>(){
         @Override
         public void handle(KeyEvent event) {
           if(event.getCode() == KeyCode.ENTER) {
             for(int i=0; i<lines; i++){
-              if(listView.getSelectionModel().getSelectedItem().toString().equals(oListStavaka.get(i))){
-                webEngine.loadContent(oListStavaka1.get(i));
+              if(element.listView.getSelectionModel().getSelectedItem().toString().equals(element.oListStavaka.get(i))){
+                webEngine.loadContent(element.oListStavaka1.get(i));
                 break;
               }
             }

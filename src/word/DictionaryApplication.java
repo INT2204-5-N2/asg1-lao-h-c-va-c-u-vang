@@ -6,10 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -34,11 +32,10 @@ public class DictionaryApplication extends Application {
       BorderPane root = new BorderPane();
       HBox buttonCon = new HBox();
       buttonCon.setSpacing(10);
-      //root.setPadding(new Insets(10));
-      dicF.listView.setItems(dicF.oListStavaka);
-      dicF.listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+      dicF.element.listView.setItems(dicF.element.oListStavaka);
+      dicF.element.listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
       dicF.data = new Scanner(dicF.file);
-      BufferedReader reader = new BufferedReader(new FileReader("/home/quanghuy/BTL/asg1-lao-h-c-va-c-u-vang/src/word/E_V.txt"));
+      BufferedReader reader = new BufferedReader(new FileReader("src/word/E_V.txt"));
       while (reader.readLine() != null) {
         dicF.lines++;
       }
@@ -46,15 +43,15 @@ public class DictionaryApplication extends Application {
       while(j < dicF.lines){
         String test = dicF.data.nextLine();
         String[] word = test.split("(?=<)", 2);
-        dicF.oListStavaka.add(word[0]);
-        dicF.oListStavaka1.add(word[1]);
+        dicF.element.oListStavaka.add(word[0]);
+        dicF.element.oListStavaka1.add(word[1]);
         j++;
       }
       dicF.clickWord();
 
       dicF.enterPress();
 
-      dicF.textField.textProperty().addListener((ChangeListener) (oListStavaka, oldVal, newVal) -> dicF.search((String) oldVal, (String) newVal));
+      dicF.textField.textProperty().addListener((ChangeListener) (oLisFtStavaka, oldVal, newVal) -> dicF.search((String) oldVal, (String) newVal));
 
       dicF.addButton(primaryStage);
       dicF.deleteButton(primaryStage);
@@ -65,8 +62,7 @@ public class DictionaryApplication extends Application {
 
       dicF.textField.setMaxHeight(20);
       dicF.textField.setMaxWidth(300);
-      dicF.listView.setMaxWidth(400);
-      //dicF.browser.setMaxWidth(200);
+      dicF.element.listView.setMaxWidth(400);
 
 
 
@@ -77,12 +73,10 @@ public class DictionaryApplication extends Application {
 
 
       dicF.textField.setPadding(new Insets(10, 100, 10, 5));
-      /*root.setTop(dicF.textField);
-      BorderPane.setMargin(dicF.textField, new Insets(10, 10, 10, 10));*/
 
-      dicF.listView.setPadding(new Insets(10, 10, 10, 10));
-      root.setLeft(dicF.listView);
-      BorderPane.setMargin(dicF.listView, new Insets(10, 10, 10, 10));
+      dicF.element.listView.setPadding(new Insets(10, 10, 10, 10));
+      root.setLeft(dicF.element.listView);
+      BorderPane.setMargin(dicF.element.listView, new Insets(10, 10, 10, 10));
       
       root.setCenter(dicF.browser);
       BorderPane.setMargin(dicF.browser, new Insets(10, 10, 10, 10));
@@ -93,25 +87,7 @@ public class DictionaryApplication extends Application {
       root.setTop(buttonCon);
       BorderPane.setMargin(buttonCon, new Insets(10, 10, 10, 10));
 
-      /*root.setTopAnchor(dicF.textField,20.0);
-      root.setLeftAnchor(dicF.textField, 10.0);
-      root.setRightAnchor(dicF.textField, 290.0);
-      root.setTopAnchor(dicF.listView, 50.5);
-      root.setLeftAnchor(dicF.listView, 10.0);
-      root.setRightAnchor(dicF.listView, 290.0);
 
-      root.setTopAnchor(dicF.browser, 20.0);
-      root.setLeftAnchor(dicF.browser, 220.0);
-      root.setRightAnchor(dicF.browser, 10.0);
-      root.setBottomAnchor(dicF.browser, 10.0);*/
-
-
-      //root.getChildren().add(dicF.textField);
-      //root.getChildren().add(dicF.listView);
-      //root.getChildren().add(dicF.browser);
-      //root.getChildren().add(dicF.add);
-      //root.getChildren().add(dicF.delete);
-      //root.getChildren().add(dicF.speech);
       Scene scene = new Scene(root, 700, 600);
       primaryStage.setTitle("JavaFX TextArea (o7planning.org)");
       primaryStage.setScene(scene);
