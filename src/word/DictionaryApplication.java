@@ -1,5 +1,7 @@
 package word;
 
+
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -11,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ import java.util.Scanner;
 public class DictionaryApplication extends Application {
     DictionaryFeatures dicF = new DictionaryFeatures();
 
-  public DictionaryApplication() throws FileNotFoundException {
+  public DictionaryApplication()  {
   }
 
   public static void main(String[] args) {
@@ -54,7 +55,7 @@ public class DictionaryApplication extends Application {
       dicF.textField.textProperty().addListener((ChangeListener) (oLisFtStavaka, oldVal, newVal) -> dicF.search((String) oldVal, (String) newVal));
 
       dicF.addButton(primaryStage);
-      dicF.deleteButton(primaryStage);
+      dicF.deleteButton();
       dicF.speechButton();
 
       root.getChildren().add(new Label("Enter message:"));

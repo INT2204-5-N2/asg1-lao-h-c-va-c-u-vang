@@ -5,7 +5,6 @@ import com.voicerss.tts.AudioFormat;
 import com.voicerss.tts.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,8 +43,8 @@ public class DictionaryFeatures{
   private Button done = new Button("DONE");
   Button speech = new Button("SPEECH");
   WebView browser = new WebView();
-  private WebEngine webEngine = browser.getEngine();
-  private Path path = Paths.get("src/word/E_V.txt");//
+  WebEngine webEngine = browser.getEngine();
+  Path path = Paths.get("src/word/E_V.txt");//
   private VoiceProvider tts = new VoiceProvider("f6190da583764c68b99019f36a32cbc5");
   private byte[] voice = new byte[0];
   private File soundFile = new File("src/word/voice.mp3");
@@ -95,19 +94,18 @@ public class DictionaryFeatures{
           lines++;
           element.oListStavaka.add(addTextField.getText());
           element.oListStavaka1.add(htmlEditor.getHtmlText());
-          System.out.println(htmlEditor.getHtmlText());
           String x = addTextField.getText() + htmlEditor.getHtmlText() + "\n";
           byte[] writeFile = x.getBytes();//
           try{
             Files.write(path, writeFile, StandardOpenOption.APPEND);//
-          }catch (Exception e){
-            System.out.println("Loi");
+          }catch (Exception ignored){
+
           }
         }
         webEngine.loadContent("");
         textField.setText("");
         element.listView.setItems(element.oListStavaka);
-        if(isAdd.get() == true) ((Stage)done.getScene().getWindow()).close();
+        if(isAdd.get()) ((Stage)done.getScene().getWindow()).close();
 
         });
 
@@ -137,45 +135,9 @@ public class DictionaryFeatures{
 
   }
 
-  void deleteButton(Stage primaryStage) throws IOException {
-    delete.setOnAction(new EventHandler<ActionEvent>(){
-      @Override
-      public void handle(ActionEvent event) {
-        String word = element.listView.getSelectionModel().getSelectedItem();
-        int tempLine = 0;
-        for (int i = 0; i <= lines; i++) {
-          if (word.equals(element.oListStavaka.get(i))) {
-            element.oListStavaka.remove(i);
-            element.oListStavaka1.remove(i);
-            break;
-          }
-          tempLine++;
-        }
-        try {
-          data = new Scanner(file);
-          File temp_file = new File("src/word/E_V_Temp.txt");
-          if (temp_file.createNewFile()) {
-            System.out.println("File da tao");
-          } else {
-            System.out.println("File chua tao");
-          }
-
-          Path temp_path = Paths.get("src/word/E_V_Temp.txt");
-          for (int i = 0; i < lines; i++) {
-            if (i == tempLine) continue;
-            String temp_line = data.nextLine() + "\n";
-            Files.write(temp_path, temp_line.getBytes(), StandardOpenOption.APPEND);
-          }
-          Files.delete(path);
-          Files.move(temp_path, temp_path.resolveSibling("E_V.txt"));
-        } catch (Exception e) {
-          System.out.println("Loi");
-        }
-        lines--;
-        webEngine.loadContent("");
-        textField.setText("");
-        element.listView.setItems(element.oListStavaka);
-      }
+  void deleteButton() {
+    delete.setOnAction(event -> {
+    deletePopUp();
     });
   }
 
@@ -240,6 +202,62 @@ public class DictionaryFeatures{
           }
         }
       });
+    }
+
+    private void deletePopUp(){
+        Button okay = new Button("OKAY");
+        Button no = new Button("NO");
+        Stage deletePop = new Stage();
+        VBox deleteVBox = new VBox();
+        Scene deleteScene = new Scene(deleteVBox, 400, 400);
+        deleteVBox.setSpacing(10);
+        deletePop.setScene(deleteScene);
+        deleteVBox.getChildren().add(new Label("Ban co chac la muon xoa tu nay khong"));
+        deleteVBox.getChildren().add(okay);
+        deleteVBox.getChildren().add(no);
+        deletePop.setTitle("Are you sure?");
+        okay.setOnAction(event ->{
+            String word = element.listView.getSelectionModel().getSelectedItem();
+            int tempLine = 0;
+            for (int i = 0; i <= lines; i++) {
+                if (word.equals(element.oListStavaka.get(i))) {
+                    element.oListStavaka.remove(i);
+                    element.oListStavaka1.remove(i);
+                    break;
+                }
+                tempLine++;
+            }
+            try {
+                data = new Scanner(file);
+                File temp_file = new File("src/word/E_V_Temp.txt");
+                /*if (temp_file.createNewFile()) {
+                    System.out.println("File da tao");
+                } else {
+                    System.out.println("File chua tao");
+                }*/
+
+                Path temp_path = Paths.get("src/word/E_V_Temp.txt");
+                for (int i = 0; i < lines; i++) {
+                    if (i == tempLine) continue;
+                    String temp_line = data.nextLine() + "\n";
+                    Files.write(temp_path, temp_line.getBytes(), StandardOpenOption.APPEND);
+                }
+                Files.delete(path);
+                Files.move(temp_path, temp_path.resolveSibling("E_V.txt"));
+            } catch (Exception e) {
+                System.out.println("Loi");
+            }
+            lines--;
+            webEngine.loadContent("");
+            textField.setText("");
+            element.listView.setItems(element.oListStavaka);
+            ((Stage)okay.getScene().getWindow()).close();
+        });
+
+        no.setOnAction(event ->{
+            ((Stage)no.getScene().getWindow()).close();
+        });
+        deletePop.show();
     }
 
 }
