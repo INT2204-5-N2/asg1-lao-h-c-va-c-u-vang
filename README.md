@@ -1,5 +1,5 @@
 # asg1-lao-h-c-va-c-u-vang
-Thư viện sử dụng : voicerss, jfx 11, jfoenix, jmetro_
+Thư viện sử dụng : voicerss, jfx 11, jfoenix, jmetro<br />
 Class Translator sử dụng mã nguồn mở trên stackoverflow
 Các class skin viết lại từ mã nguồn jmetro vì ko tương thích với jdk 11
 Phiên bản jdk, jfx: openjdk-11-jdk, jfx 11
