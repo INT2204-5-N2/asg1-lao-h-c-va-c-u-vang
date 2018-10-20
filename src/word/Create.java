@@ -1,15 +1,16 @@
 package word;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 public class Create {
-    ListView<String> listView;
+
     ObservableList<String> oListStavaka = FXCollections.observableArrayList();
     ObservableList<String> oListStavaka1 = FXCollections.observableArrayList();
+    JFXListView<String> jfxListView;
 
     public Create() {
-        listView = new ListView<>();
+        jfxListView = new JFXListView<>();
     }
 }

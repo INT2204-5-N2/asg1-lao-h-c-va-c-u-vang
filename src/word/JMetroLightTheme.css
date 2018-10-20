@@ -1,0 +1,334 @@
+.root {
+    ACCENT_COLOR: #2796c4;
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+
+    -fx-border-color: #a4a4a4;
+    -fx-border-width: 2px;
+}
+
+.list-view:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-padding: 1em 2em 1em 2em;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-background-color: white;
+}
+
+.list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
+    -fx-background-color: #d3d3d3;
+}
+
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-background-color: white;
+}
+
+.list-view:focused > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
+    -fx-background-color: -fx-background;
+    -fx-background-insets: 0;
+}
+
+.scroll-bar {
+    THUMB: #c2c7ca;
+    THUMB_HOVER: #838689;
+    THUMB_PRESSED: #585a5c;
+
+    TRACK: #e9e9e9;
+
+    INC_DEC_BUTTON: #e8e6e3;
+    INC_DEC_BUTTON_HOVER: #c6cacf;
+    INC_DEC_BUTTON_PRESSED: #585a5c;
+
+    ARROW: #5a5a59;
+    ARROW_PRESSED: white;
+}
+
+.scroll-bar > .thumb{
+    -fx-background-color: THUMB;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar > .thumb:hover {
+    -fx-background-color: THUMB_HOVER;
+}
+
+.scroll-bar > .thumb:pressed {
+    -fx-background-color: THUMB_PRESSED;
+}
+
+.scroll-bar > .track {
+    -fx-background-color: TRACK;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.scroll-bar > .track-background {
+    -fx-background-insets: 0;
+}
+
+
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: INC_DEC_BUTTON;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+
+    -fx-padding: 0.5em 0.25em 0.5em 0.25em; /* 6 3 6 3*/
+}
+
+.scroll-bar:horizontal > .increment-button,
+.scroll-bar:horizontal > .decrement-button {
+    -fx-padding: 0.25em 0.5em 0.25em 0.5em ; /* 3 6 3 6*/
+}
+
+.scroll-bar > .increment-button:hover,
+.scroll-bar > .decrement-button:hover  {
+    -fx-background-color: INC_DEC_BUTTON_HOVER;
+}
+
+.scroll-bar > .increment-button:pressed,
+.scroll-bar > .decrement-button:pressed {
+    -fx-background-color: INC_DEC_BUTTON_PRESSED;
+}
+
+.scroll-bar > .decrement-button > .decrement-arrow,
+.scroll-bar > .increment-button > .increment-arrow{
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-background-color: transparent, #606060;
+    -fx-effect: null;
+}
+
+/* Disabled */
+.scroll-bar:disabled {
+    -fx-opacity: 0.4;
+}
+
+/* ARROW SHAPES */
+.scroll-bar:horizontal > .increment-button > .increment-arrow {
+    -fx-shape: "M14.4,18.611l3.633-3.637L14.4,11.338l0.352-0.352l3.992,3.988 l-3.992,3.988L14.4,18.611z";
+}
+
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-shape: "M18.393,18.963L14.4,14.975l3.992-3.988l0.352,0.352l-3.633,3.637 l3.633,3.637L18.393,18.963z";
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-shape: "M20.561,13.154l-3.988,3.992l-3.988-3.992l0.352-0.352 l3.637,3.633l3.637-3.633L20.561,13.154z";
+}
+
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: "M20.209,17.146l-3.637-3.633l-3.637,3.633l-0.352-0.352 l3.988-3.992l3.988,3.992L20.209,17.146z";
+}
+
+.scroll-bar > .decrement-button:pressed > .decrement-arrow,
+.scroll-bar > .increment-button:pressed > .increment-arrow {
+    -fx-background-color: transparent, white;
+    -fx-effect: null;
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-padding: 2.5px 4px 2.5px 4px;
+}
+
+.scroll-bar:horizontal > .increment-button > .increment-arrow,
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-padding: 4px 2.5px 4px 2.5px;
+    -fx-translate-y: -1; /* HACK:  Somehow the arrow is not centered so we add this to center it */
+}
+
+.scroll-bar > .increment-button > .increment-arrow, .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: ARROW;
+}
+
+.scroll-bar > .increment-button:pressed > .increment-arrow, .scroll-bar > .decrement-button:pressed > .decrement-arrow {
+    -fx-background-color: ARROW_PRESSED;
+}
+
+.text-field {
+    -fx-skin: "word.TextFieldSkin";
+}
+
+.button, .toggle-button {
+    BACKGROUND: #cccccc;
+    BACKGROUND_PRESSED: #999999;
+
+    BORDER_HOVER: #7a7a7a;
+
+    TEXT: #111;
+    DEFAULT_BUTTON_TEXT: white;
+
+    FOCUS_RING_BORDER: #111;
+
+    -shrink-animate-on-press: true;
+}
+
+.button, .toggle-button {
+    -fx-padding: 0.25em 1.666666em 0.25em 1.666666em; /*3 20 3 20*/
+
+    -fx-border-color: transparent;
+    -fx-border-width: 2;
+
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: BACKGROUND;
+
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-size: 12;
+    -fx-text-fill: TEXT;
+}
+
+.button:hover{
+    -fx-border-color: BORDER_HOVER;
+}
+
+.button:pressed
+{
+    -fx-border-color: BACKGROUND_PRESSED;
+    -fx-background-color: BACKGROUND_PRESSED;
+}
+
+.button:focused
+{
+    -fx-border-color: transparent, FOCUS_RING_BORDER;
+    -fx-border-width: 1, 1;
+    /*noinspection CssInvalidFunction*/
+    -fx-border-style: solid, segments(1, 2);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled
+{
+    -fx-opacity: 0.4;
+    -fx-background-color: BACKGROUND;
+    -fx-text-fill: TEXT;
+}
+
+/****************************** Button ****************************************/
+
+.button {
+    -fx-skin: "word.FluentButtonSkin";
+}
+
+.button {
+    BORDER_HOVER_DEFAULT: derive(ACCENT_COLOR, -40%);
+}
+
+.button:default
+{
+    -fx-background-color: ACCENT_COLOR;
+    -fx-text-fill: DEFAULT_BUTTON_TEXT;
+}
+
+.button:default:hover{
+    -fx-border-color: BORDER_HOVER_DEFAULT;
+}
+
+.button:default:pressed {
+    -fx-background-color: derive(ACCENT_COLOR, -40%);
+}
+
+.text-field {
+    -fx-skin: "word.TextFieldSkin";
+}
+
+.text-field {
+    BORDER: #999999;
+    BORDER_HOVER: #666666;
+
+    BACKGROUND: white;
+    BACKGROUND_FOCUSED: white;
+    BACKGROUND_HOVER: white;
+
+    TEXT_COLOR: #111;
+    PROMPT_TEXT: #666666;
+
+    HIGHLIGHT: ACCENT_COLOR;
+    HIGHLIGHT_TEXT: white;
+
+    GRAPHIC: #747474;
+    
+}
+
+.text-area {
+    BORDER: #999999;
+    BORDER_HOVER: #666666;
+
+    BACKGROUND: white;
+    BACKGROUND_FOCUSED: white;
+    BACKGROUND_HOVER: white;
+
+    TEXT_COLOR: #111;
+    PROMPT_TEXT: #666666;
+
+    HIGHLIGHT: ACCENT_COLOR;
+    HIGHLIGHT_TEXT: white;
+
+    GRAPHIC: #747474;
+    
+}
+
+
+
+.text-input{
+    -fx-background-radius: 0, 0;
+
+    -fx-background-color: BORDER, BACKGROUND;
+    -fx-background-insets: 0, 2;
+
+    -fx-prompt-text-fill: PROMPT_TEXT;
+
+    -fx-highlight-fill: HIGHLIGHT;
+    -fx-highlight-text-fill: HIGHLIGHT_TEXT;
+
+    -fx-font-size: 1.166667em; /* 14 */
+}
+
+.text-input:hover{
+    -fx-background-color: BORDER_HOVER, BACKGROUND_HOVER;
+}
+
+.text-input:focused{
+    -fx-background-color: ACCENT_COLOR, BACKGROUND_FOCUSED;
+
+    -fx-text-fill: TEXT_COLOR;
+}
+
+.text-input > .right-button{
+    -fx-cursor: default;
+
+    -fx-background-insets: -0.1666665em -0.45em -0.1666665em -0.45em; /* 4 7 4 7 -> this values are subtracted by 2px in em because of the border of the textfield */
+    -fx-background-color: BACKGROUND_FOCUSED;  /* We must give it a color so that it reacts to the mouse */
+}
+
+.text-field > .right-button > .right-button-graphic {
+    -fx-shape: "M221.738,305.873l6.135,6.16l-2.875,2.863l-6.135-6.159l-6.263,6.237l-2.864-2.875l6.263-6.238l-6.177-6.202l2.875-2.863l6.177,6.201l6.244-6.22l2.864,2.876L221.738,305.873z";
+
+    -fx-padding: 0.416667em;
+    -fx-background-color: GRAPHIC;
+}
+
+.text-input > .right-button:hover > .right-button-graphic {
+    -fx-background-color: ACCENT_COLOR;
+}
+
+.text-input:disabled
+{
+    -fx-opacity: 1;
+    -fx-background-color: #d9d9d9, #eaeaea;
+    -fx-text-fill: #adadad;
+}
+
+
