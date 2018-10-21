@@ -3,8 +3,8 @@ package word;
 import java.sql.*;
 
 class SQLCon {
-    String urlCon = "jdbc:sqlite:src/word/dictionaries.db";
-    Connection conn = DriverManager.getConnection(urlCon);
+    private final String urlCon = "jdbc:sqlite:src/word/dictionaries.db";
+    private  final Connection conn = DriverManager.getConnection(urlCon);
 
     SQLCon() throws SQLException {
     }

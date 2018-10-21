@@ -1,5 +1,6 @@
 .root {
     ACCENT_COLOR: #2796c4;
+    -fx-background-color: #ebf0f9;
 }
 
 .list-view {
@@ -29,6 +30,7 @@
 .list-cell:filled:hover {
     -fx-text-fill: blue;
 }
+
 
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
     -fx-background-color: #d3d3d3;
@@ -359,7 +361,7 @@
 .html-editor 
 {
 	-fx-font: 12 cambria;
-	-fx-border-color: blue; 
+	-fx-border-color: black; 
 	-fx-border-style: solid;
 	-fx-border-width: 2;	
 }

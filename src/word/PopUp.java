@@ -2,10 +2,10 @@ package word;
 
 import javafx.scene.control.Alert;
 
-public class PopUp  {
+class PopUp  {
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public void popMessage(){
+    void popMessage(){
         alert.setTitle("Da co san");
         alert.setHeaderText(null);
         alert.setContentText("Tu nay da co san");
@@ -13,7 +13,7 @@ public class PopUp  {
         alert.showAndWait();
     }
 
-    public void popReplaceMessage(){
+    void popReplaceMessage(){
         alert.setTitle("Chua chon tu");
         alert.setHeaderText(null);
         alert.setContentText("Vui long chon tu can sua");
@@ -21,7 +21,7 @@ public class PopUp  {
         alert.showAndWait();
     }
 
-    public void popDeleteMessage(){
+    void popDeleteMessage(){
 
         alert.setTitle("Chua chon tu");
         alert.setHeaderText(null);
@@ -30,7 +30,7 @@ public class PopUp  {
         alert.showAndWait();
     }
 
-    public void popAddMessage(){
+    void popAddMessage(){
 
         alert.setTitle("Chua chon tu");
         alert.setHeaderText(null);

@@ -7,14 +7,14 @@ import com.voicerss.tts.AudioFormat;
 import com.voicerss.tts.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -38,13 +38,12 @@ public class DictionaryFeatures{
 
   Create element = new Create();
   static int lines = 0;
-  Button add = new Button("ADD");
-  Button delete = new Button("DELETE");
-  Button replace = new Button("REPLACE");
-  Button done = new Button("DONE");
-  Button test = new Button("TEST");
-  Button speech = new Button("SPEECH");
-  Button translate = new Button("TRANSLATE");
+  Button add;
+  Button delete;
+  Button replace;
+  private Button done = new Button("DONE");
+  Button speech;
+  Button translate;
   TextField testTextF = new TextField();
   WebView browser = new WebView();
   WebEngine webEngine = browser.getEngine();
@@ -55,6 +54,17 @@ public class DictionaryFeatures{
 
   public DictionaryFeatures() throws SQLException {
       popUp = new PopUp();
+      Image imageAdd = new Image(getClass().getResourceAsStream("icons8-plus-math-32.png"));
+      add = new Button("", new ImageView(imageAdd));
+      Image imageDelete = new Image(getClass().getResourceAsStream("icons8-trash-32.png"));
+      delete = new Button("", new ImageView(imageDelete));
+      Image imageSpeak = new Image(getClass().getResourceAsStream("icons8-speaker-32.png"));
+      speech = new Button("", new ImageView(imageSpeak));
+      Image imageTranslate = new Image(getClass().getResourceAsStream("icons8-google-translate-32.png"));
+      translate = new Button("",new ImageView(imageTranslate));
+      Image imageReplace = new Image(getClass().getResourceAsStream("icons8-replace-32.png"));
+      replace = new Button("",new ImageView(imageReplace));
+      testTextF.setPromptText("Tim kiem");
   }
 
 
@@ -72,7 +82,7 @@ public class DictionaryFeatures{
     }
   }
 
-  void addButton(Stage primaryStage) {
+  private void addButton(Stage primaryStage) {
       add.setOnAction(event ->{
           VBox secondaryLayout = new VBox();
           Stage newWindow = new Stage();
@@ -142,14 +152,14 @@ public class DictionaryFeatures{
 
   }
 
-  void deleteButton() {
+  private void deleteButton() {
     delete.setOnAction(event -> {
         if(element.jfxListView.getSelectionModel().getSelectedItem() == null) popUp.popDeleteMessage();
         else deletePopUp();
     });
   }
 
-  void speechButton(){
+  private void speechButton(){
     speech.setOnAction(event -> {
       String soundWord = element.jfxListView.getSelectionModel().getSelectedItem();
       VoiceParameters params = new VoiceParameters(soundWord, Languages.English_UnitedStates);
@@ -175,15 +185,13 @@ public class DictionaryFeatures{
         clip.open(sound);
         clip.start();
         soundFile.delete();
-      } catch (UnsupportedAudioFileException | IOException e) {
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
         e.printStackTrace();
-      } catch (LineUnavailableException e) {
-          e.printStackTrace();
       }
     });
   }
 
-  void translateButton(Stage primaryStage){
+  private void translateButton(Stage primaryStage){
       translate.setOnAction(event->{
           Stage newWindow = new Stage();
           Button dich = new Button("DICH");
@@ -221,7 +229,7 @@ public class DictionaryFeatures{
 
   }
 
-  void replaceButton(Stage primaryStage){
+  private void replaceButton(Stage primaryStage){
       replace.setOnAction(event->{
           if(element.jfxListView.getSelectionModel().getSelectedItem() == null) popUp.popReplaceMessage();
           else{
@@ -269,7 +277,7 @@ public class DictionaryFeatures{
   }
 
     //An vao tu
-    void clickWord(){
+    private void clickWord(){
       element.jfxListView.setOnMouseClicked(event -> {
           try {
               webEngine.loadContent( sqlCon.getMeanFromSQL(element.jfxListView.getSelectionModel().getSelectedItem()));
@@ -280,17 +288,14 @@ public class DictionaryFeatures{
     }
 
     //An enter
-    void enterPress(){
-      element.jfxListView.setOnKeyPressed(new EventHandler<KeyEvent>(){
-        @Override
-        public void handle(KeyEvent event) {
-          if(event.getCode() == KeyCode.ENTER) {
-              try {
-                 webEngine.loadContent( sqlCon.getMeanFromSQL(element.jfxListView.getSelectionModel().getSelectedItem()));
-              } catch (SQLException e) {
-                  e.printStackTrace();
-              }
-          }
+    private void enterPress(){
+      element.jfxListView.setOnKeyPressed(event -> {
+        if(event.getCode() == KeyCode.ENTER) {
+            try {
+               webEngine.loadContent( sqlCon.getMeanFromSQL(element.jfxListView.getSelectionModel().getSelectedItem()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
       });
     }
@@ -336,10 +341,18 @@ public class DictionaryFeatures{
             ((Stage)okay.getScene().getWindow()).close();
         });
 
-        no.setOnAction(event ->{
-            ((Stage)no.getScene().getWindow()).close();
-        });
+        no.setOnAction(event -> ((Stage)no.getScene().getWindow()).close());
         deletePop.show();
+    }
+
+    void run(Stage primaryStage){
+      clickWord();
+      enterPress();
+      addButton(primaryStage);
+      deleteButton();
+      speechButton();
+      translateButton(primaryStage);
+      replaceButton(primaryStage);
     }
 
 }
