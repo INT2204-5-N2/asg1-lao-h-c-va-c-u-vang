@@ -1,8 +1,6 @@
 package word;
 
 
-import impl.jfxtras.styles.jmetro8.*;
-import javafx.scene.control.skin.TextFieldSkin;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -14,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro8.JMetro;
 
 import java.io.IOException;
 import java.sql.*;
@@ -36,7 +33,6 @@ public class DictionaryApplication extends Application {
     Connection conn = DriverManager.getConnection(urlCon);
 
       BorderPane root = new BorderPane();
-      JMetro jMetro = new JMetro(JMetro.Style.LIGHT);
       HBox buttonCon = new HBox();
       buttonCon.setSpacing(10);
       VBox testBox = new VBox();
@@ -78,7 +74,7 @@ public class DictionaryApplication extends Application {
       dicF.addButton(primaryStage);
       dicF.deleteButton();
       dicF.speechButton();
-      dicF.translateButton();
+      dicF.translateButton(primaryStage);
       dicF.replaceButton(primaryStage);
       root.getChildren().add(new Label("Enter message:"));
 
@@ -98,9 +94,6 @@ public class DictionaryApplication extends Application {
       buttonCon.getChildren().add(dicF.translate);
 
 
-      //dicF.testTextF.setPadding(new Insets(0, 0, 0, 0));
-
-      //testBox.setPadding(new Insets(10, 0, 0, 0));
       root.setLeft(testBox);
       BorderPane.setMargin(testBox, new Insets(10, 10, 10, 10));
 
@@ -122,7 +115,6 @@ public class DictionaryApplication extends Application {
 
 
       final Scene scene = new Scene(root, 750, 600, Color.WHITE);
-      //jMetro.applyTheme(scene);
       scene.getStylesheets().add(DictionaryApplication.class.getResource("JMetroLightTheme.css").toExternalForm());
       primaryStage.setTitle("JavaFX TextArea (o7planning.org)");
       primaryStage.setScene(scene);

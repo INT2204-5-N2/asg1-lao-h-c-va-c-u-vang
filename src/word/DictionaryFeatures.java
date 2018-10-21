@@ -3,14 +3,16 @@ package word;
 
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import com.voicerss.tts.AudioFormat;
 import com.voicerss.tts.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -29,7 +31,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+
 public class DictionaryFeatures{
+  private static final String VOICE_FILE = "src/word/voice.wav";
 
   Create element = new Create();
   static int lines = 0;
@@ -45,10 +50,8 @@ public class DictionaryFeatures{
   WebEngine webEngine = browser.getEngine();
   private VoiceProvider tts = new VoiceProvider("f6190da583764c68b99019f36a32cbc5");
   private byte[] voice = new byte[0];
-  private File soundFile = new File("src/word/voice.mp3");
-  private Clip clip;
-  SQLCon sqlCon = new SQLCon();
-  PopUp popUp;
+  private SQLCon sqlCon = new SQLCon();
+  private PopUp popUp;
 
   public DictionaryFeatures() throws SQLException {
       popUp = new PopUp();
@@ -77,6 +80,7 @@ public class DictionaryFeatures{
           AtomicBoolean isAdd = new AtomicBoolean(true);
           Scene secondScene = new Scene(secondaryLayout, 700, 500);
           TextField addTextField = new TextField();
+          addTextField.setMaxWidth(200);
           done.getStyleClass().add("button-raised");
           HTMLEditor htmlEditor = new HTMLEditor();
           htmlEditor.setPrefHeight(245);
@@ -84,7 +88,6 @@ public class DictionaryFeatures{
           done.setOnAction(event1 -> {
               if(htmlEditor.getHtmlText().equals("")  || addTextField.getText().equals("")){
                   popUp.popAddMessage();
-                  //webEngine.loadContent(element.jfxListView.getSelectionModel().getSelectedItem());
               }
               else {
                   int i;
@@ -114,7 +117,6 @@ public class DictionaryFeatures{
 
           });
 
-          addTextField.setMaxWidth(100);
           secondaryLayout.getChildren().add(new Label("Tu can them:"));
           secondaryLayout.getChildren().add(addTextField);
           secondaryLayout.getChildren().add(new Label("Nghia cua tu: "));
@@ -129,8 +131,7 @@ public class DictionaryFeatures{
           // Specifies the modality for new window.
           newWindow.initModality(Modality.WINDOW_MODAL);
 
-      /*// Specifies the owner Window (parent) for new window
-      newWindow.initOwner(primaryStage);*/
+          newWindow.initOwner(primaryStage);
 
           // Set position of second window, related to primary window.
           newWindow.setX(primaryStage.getX() + 200);
@@ -150,16 +151,16 @@ public class DictionaryFeatures{
 
   void speechButton(){
     speech.setOnAction(event -> {
-      String soundWord = element.jfxListView.getSelectionModel().getSelectedItem().toString();
+      String soundWord = element.jfxListView.getSelectionModel().getSelectedItem();
       VoiceParameters params = new VoiceParameters(soundWord, Languages.English_UnitedStates);
       params.setCodec(AudioCodec.WAV);
-      params.setFormat(AudioFormat.Format_44KHZ.AF_44khz_16bit_stereo);
+      params.setFormat(AudioFormat.Format_44KHZ.AF_44khz_8bit_mono);
       params.setBase64(false);
       params.setSSML(false);
-      params.setRate(0);
+      params.setRate(-2);
       try {
         voice = tts.speech(params);
-        FileOutputStream fos =  new FileOutputStream("src/word/voice.mp3");
+        FileOutputStream fos =  new FileOutputStream(VOICE_FILE);
         fos.write(voice, 0, voice.length);
         fos.flush();
         fos.close();
@@ -167,19 +168,22 @@ public class DictionaryFeatures{
         e.printStackTrace();
       }
       try {
+        File soundFile = new File(VOICE_FILE);
         AudioInputStream sound = AudioSystem.getAudioInputStream(soundFile);
-        DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
-        clip = (Clip) AudioSystem.getLine(info);
+        Clip clip;
+        clip = AudioSystem.getClip();
         clip.open(sound);
         clip.start();
         soundFile.delete();
-      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+      } catch (UnsupportedAudioFileException | IOException e) {
         e.printStackTrace();
+      } catch (LineUnavailableException e) {
+          e.printStackTrace();
       }
     });
   }
 
-  void translateButton(){
+  void translateButton(Stage primaryStage){
       translate.setOnAction(event->{
           Stage newWindow = new Stage();
           Button dich = new Button("DICH");
@@ -210,6 +214,7 @@ public class DictionaryFeatures{
 
           // Specifies the modality for new window.
           newWindow.initModality(Modality.WINDOW_MODAL);
+          newWindow.initOwner(primaryStage);
 
           newWindow.show();
       });
@@ -250,6 +255,8 @@ public class DictionaryFeatures{
 
               // Specifies the modality for new window.
               newWindow.initModality(Modality.WINDOW_MODAL);
+
+              newWindow.initOwner(primaryStage);
 
               // Set position of second window, related to primary window.
               newWindow.setX(primaryStage.getX() + 200);

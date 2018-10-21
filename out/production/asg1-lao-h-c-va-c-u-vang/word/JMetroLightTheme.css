@@ -26,6 +26,10 @@
     -fx-background-color: white;
 }
 
+.list-cell:filled:hover {
+    -fx-text-fill: blue;
+}
+
 .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
     -fx-background-color: #d3d3d3;
 }
@@ -240,6 +244,27 @@
     -fx-background-color: derive(ACCENT_COLOR, -40%);
 }
 
+.toggle-button {
+    -fx-skin: "word.FluentToggleButtonSkin";
+}
+
+.toggle-button {
+    BORDER_HOVER_SELECTED: derive(ACCENT_COLOR, -40%);
+}
+
+.toggle-button:selected {
+    -fx-background-color: ACCENT_COLOR;
+    -fx-text-fill: white;
+}
+
+.toggle-button:selected:hover {
+    -fx-border-color: BORDER_HOVER_SELECTED;
+}
+
+.toggle-button:selected:pressed {
+    -fx-background-color: derive(ACCENT_COLOR, -40%);
+}
+
 .text-field {
     -fx-skin: "word.TextFieldSkin";
 }
@@ -329,6 +354,110 @@
     -fx-opacity: 1;
     -fx-background-color: #d9d9d9, #eaeaea;
     -fx-text-fill: #adadad;
+}
+
+.html-editor 
+{
+	-fx-font: 12 cambria;
+	-fx-border-color: blue; 
+	-fx-border-style: solid;
+	-fx-border-width: 2;	
+}
+
+
+.html-editor-background 
+{
+	-fx-color-label-visible: true;
+}
+
+.html-editor-foreground 
+{
+	-fx-color-label-visible: true;
+}
+
+
+.combo-box-base {
+     BORDER_COLOR: #999999;
+     BORDER_COLOR_HOVER: #666666;
+     BORDER_COLOR_FOCUSED: #5c5c5c;
+     BORDER_COLOR_PRESSED: BORDER_COLOR;
+
+     BACKGROUND_PRESSED: #cccccc;
+
+     LIST_CELL_BACKGROUND: #f2f2f2;
+     LIST_CELL_HOVER_BACKGROUND: #e0e0e0;
+
+     LIST_CELL_BORDER: #cccccc;
+}
+
+.combo-box-base  {
+    -fx-background-color: transparent, BORDER_COLOR, transparent, white;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-padding: 0.166667em 0.166667em 0.166667em 0.166667em; /* 2 2px 2 2px*/
+
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 1.333333em; /* 16 */
+}
+
+.combo-box-base:hover {
+    -fx-background-color: transparent, BORDER_COLOR_HOVER, transparent, white;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: transparent, BORDER_COLOR_FOCUSED, transparent, white;
+    -fx-background-insets: -1.4, 0, 1, 2;
+
+    -fx-background-radius: 0, 0, 0, 0;
+}
+
+.combo-box-base:focused:hover {
+    -fx-background-color: transparent, #909090, transparent, white;
+}
+
+.combo-box-base:pressed, .combo-box-base:focused:pressed {
+    -fx-background-color: transparent, BORDER_COLOR_PRESSED, transparent, BACKGROUND_PRESSED;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+/* OPEN BUTTON */
+.combo-box-base > .arrow-button {
+    -fx-background-color: transparent, transparent, transparent;
+}
+
+/* ARROW */
+.combo-box-base > .arrow-button > .arrow {
+    -fx-padding: 3.5px 6px 3.5px 6px;
+    -fx-shape: "M21.361,12.736l0.527,0.527L16,19.152l-5.889-5.889l0.527-0.527L16,18.098L21.361,12.736z";
+    -fx-background-insets: 0 0 0 0, 0;
+    -fx-background-color: black;
+}
+
+/* LIST (Popup)*/
+.combo-box-popup > .list-view {
+    -fx-effect: null;
+
+    -fx-border-color: LIST_CELL_BORDER;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11pt;
+    -fx-padding: 4 0 4 5;
+
+    -fx-background-color: LIST_CELL_BACKGROUND;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover{
+    -fx-background-color: #dedede;
+    -fx-text-fill: #111;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected{
+    -fx-background-color: ACCENT_COLOR;
+    -fx-text-fill: #111;
 }
 
 
