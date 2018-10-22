@@ -15,7 +15,7 @@ public class Translator {
     public static void main(String[] args) throws IOException {
         String text = "Hello world!";
         //Translated text: Hallo Welt!
-        System.out.println("Translated text: " + translate("en", "de", text));
+        System.out.println("Translated text: " + translate("en", "vi", text));
     }
 
     public static String translate(String langFrom, String langTo, String text) throws IOException {
@@ -28,7 +28,7 @@ public class Translator {
         StringBuilder response = new StringBuilder();
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        InputStreamReader inputStreamReader = new InputStreamReader(con.getInputStream());
+        InputStreamReader inputStreamReader = new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8);
         BufferedReader in = new BufferedReader(inputStreamReader);
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
