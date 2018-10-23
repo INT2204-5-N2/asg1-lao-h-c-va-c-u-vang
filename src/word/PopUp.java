@@ -1,9 +1,18 @@
 package word;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 
 class PopUp  {
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+    PopUp(){
+        DialogPane dialogPane;
+        dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("JMetroLightTheme.css").toExternalForm());
+    }
+
+
 
     void popMessage(){
         alert.setTitle("Da co san");

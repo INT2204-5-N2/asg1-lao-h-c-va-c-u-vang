@@ -7,6 +7,7 @@ import com.voicerss.tts.AudioFormat;
 import com.voicerss.tts.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -87,14 +88,15 @@ public class DictionaryFeatures{
           VBox secondaryLayout = new VBox();
           Stage newWindow = new Stage();
           secondaryLayout.setSpacing(5);
+          secondaryLayout.setPadding(new Insets(0, 0, 10, 0));
           AtomicBoolean isAdd = new AtomicBoolean(true);
           Scene secondScene = new Scene(secondaryLayout, 700, 500);
           TextField addTextField = new TextField();
           addTextField.setMaxWidth(200);
           done.getStyleClass().add("button-raised");
           HTMLEditor htmlEditor = new HTMLEditor();
-          htmlEditor.setPrefHeight(245);
-          htmlEditor.setMinHeight(220);
+          htmlEditor.setPrefHeight(600);
+          htmlEditor.setPrefWidth(400);
           done.setOnAction(event1 -> {
               if(htmlEditor.getHtmlText().equals("")  || addTextField.getText().equals("")){
                   popUp.popAddMessage();
@@ -203,6 +205,8 @@ public class DictionaryFeatures{
           TextArea inputText = new TextArea();
           inputText.setPromptText("Vui long dien vao");
           TextArea outputText = new TextArea();
+          inputText.setWrapText(true);
+          outputText.setWrapText(true);
           outputText.setEditable(false);
           dich.setOnAction(event1 ->{
               try {

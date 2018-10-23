@@ -1,6 +1,57 @@
 .root {
     ACCENT_COLOR: #2796c4;
-    -fx-background-color: #ebf0f9;
+    /*-fx-background-color: #ebf0f9;*/
+    -fx-background-color: rgba(235, 240, 249, 0.7);
+}
+
+.header{
+    -fx-font-size: 3.5em;
+    -fx-font-family: "Segoe UI Semilight";
+    -fx-text-fill: black;
+}
+
+.item-title{
+    -fx-font-size: 1em;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: black;
+}
+
+ 
+.titled-pane {
+    -fx-effect: dropshadow(three-pass-box, #9F9F9F, 15, 0, 0, 0);
+    -fx-animated: true;
+    -fx-text-fill: #505050;
+}
+
+.titled-pane .title  {
+    -fx-background-radius: 0, 0, 0;
+    -fx-font: bold 14px System;
+    -fx-padding: 0.3em 0.833333em 0.35em 0.833333em;
+    
+    /* stop the background from being blue on focus */
+    -fx-background-color: ladder(
+            red,
+            black 20%,
+            derive(#d0d0d0,-30%) 30%
+        ), 
+        linear-gradient(
+        to bottom,
+            ladder(#d0d0d0, 
+                derive(#d0d0d0,80%) 60%, 
+                white 82%) 0%,
+            ladder(#d0d0d0, 
+                derive(#d0d0d0,20%) 10%, 
+                derive(#d0d0d0,-10%) 80%) 100%
+        ), linear-gradient(
+            to bottom,
+            derive(#d0d0d0,34%) 0%,
+            derive(#d0d0d0,-18%) 100%
+        );
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    /* do not highlight the title pane arrow on focus */
+    -fx-background-color: #606060;
 }
 
 .list-view {
